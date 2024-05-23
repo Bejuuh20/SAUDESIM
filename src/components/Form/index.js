@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, TextInput,Text,Button} from "react-native";
-import { validate } from "react-native-web/dist/cjs/exports/StyleSheet/validate";
+import ResultImc from "./ResultImc";
 
 export default function Form(){
 
@@ -9,16 +9,25 @@ export default function Form(){
   const[messageImc,setMessageImc]= useState("preencha o peso e altura");
   const[imc,setImc]=useState(null)
   const[textButton, setTextButton]= useState("IMC")
+
+  function imcCalculator(){
+    return setImc ((weight/(height*height)).toFixed(2))
+  }
+
     return(
     <View>
     <View>
     <Text>Altura</Text>
     <TextInput
+    onChangeText={setHeight}
+    value={height}
     placeholder="Ex. 1.75"
     keyboardType="numeric"/>
 
     <Text>Peso</Text>
     <TextInput
+    onChangeText={setWeight}
+    value={weight}
     placeholder="Ex. 80.365"
     keyboardType="numeric"/>
 
@@ -28,6 +37,8 @@ export default function Form(){
         />
 
     </View>
+    <ResultImc messageResultImc={messageImc}
+    ResultImc={imc}/>
      </View>
   );
 }
